@@ -1,0 +1,66 @@
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const controls = ['play-large'];
+            const player = Plyr.setup('.player', { controls });
+
+            const adVideo = document.getElementById('ad-video');
+            const originalContainer = document.getElementById('jwplayerDiv');
+            const originalVideo = document.getElementById('jwplayerDiv');
+            const skipButton = document.getElementById('skip-button');
+            const timer = document.getElementById('timer');
+            const adLink = document.getElementById('ad-link');
+
+            let timerEnded = false;
+
+            let timeLeft = 12;
+            const countdown = () => {
+                const interval = setInterval(() => {
+                    timer.textContent = `Skip in ${timeLeft}s`;
+                    timeLeft--;
+
+                    if (timeLeft < 0) {
+                        clearInterval(interval);
+                        timer.textContent = '';
+                        skipButton.textContent = 'Skip Ad';
+                        timerEnded = true;
+                    }
+                }, 1000);
+            };
+
+            adVideo.addEventListener('play', () => {
+                setTimeout(() => {
+                    skipButton.style.display = 'block';
+                }, 13000);
+                countdown();
+            });
+
+            skipButton.addEventListener('click', () => {
+                if (timerEnded) {
+                    adVideo.pause();
+                    adVideo.style.display = 'none';
+                    originalContainer.style.display = 'block';
+                    originalVideo.play();
+                    skipButton.style.display = 'none';
+                    timer.style.display = 'none';
+                }
+            });
+
+            adVideo.addEventListener('ended', () => {
+                adVideo.style.display = 'none';
+                originalContainer.style.display = 'block';
+                originalVideo.play();
+                timer.style.display = 'none';
+            });
+
+            function setAdVideoSource(url, link) {
+                const source = document.createElement('source');
+                source.src = url;
+                source.type = 'video/mp4';
+                adVideo.appendChild(source);
+                adVideo.load();
+                adLink.href = link;
+            }
+
+            setAdVideoSource('https://hugh.cdn.rumble.cloud/video/s8/2/D/E/9/Q/DE9Qs.baa.mp4', 'https://hivajoyai.blogspot.com');
+        });
+  
