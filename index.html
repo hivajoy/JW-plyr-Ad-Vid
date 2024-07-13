@@ -5,14 +5,13 @@
 
             const adVideo = document.getElementById('ad-video');
             const originalContainer = document.getElementById('jwplayerDiv');
-            const originalVideo = document.getElementById('jwplayerDiv');
             const skipButton = document.getElementById('skip-button');
             const timer = document.getElementById('timer');
             const adLink = document.getElementById('ad-link');
 
             let timerEnded = false;
-
             let timeLeft = 12;
+
             const countdown = () => {
                 const interval = setInterval(() => {
                     timer.textContent = `Skip in ${timeLeft}s`;
@@ -34,23 +33,22 @@
                 countdown();
             });
 
+            const switchToJWPlayer = () => {
+                adVideo.pause();
+                adVideo.style.display = 'none';
+                originalContainer.style.display = 'block';
+                initializeJWPlayer();
+                skipButton.style.display = 'none';
+                timer.style.display = 'none';
+            };
+
             skipButton.addEventListener('click', () => {
                 if (timerEnded) {
-                    adVideo.pause();
-                    adVideo.style.display = 'none';
-                    originalContainer.style.display = 'block';
-                    originalVideo.play();
-                    skipButton.style.display = 'none';
-                    timer.style.display = 'none';
+                    switchToJWPlayer();
                 }
             });
 
-            adVideo.addEventListener('ended', () => {
-                adVideo.style.display = 'none';
-                originalContainer.style.display = 'block';
-                originalVideo.play();
-                timer.style.display = 'none';
-            });
+            adVideo.addEventListener('ended', switchToJWPlayer);
 
             function setAdVideoSource(url, link) {
                 const source = document.createElement('source');
@@ -62,5 +60,7 @@
             }
 
             setAdVideoSource('https://hugh.cdn.rumble.cloud/video/s8/2/D/E/9/Q/DE9Qs.baa.mp4', 'https://hivajoyai.blogspot.com');
+
+            
         });
-  
+    
