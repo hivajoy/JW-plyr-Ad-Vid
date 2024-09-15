@@ -10,7 +10,7 @@
             const adLink = document.getElementById('ad-link');
 
             let timerEnded = false;
-            let timeLeft = 12;
+            let timeLeft = 20;
 
             const countdown = () => {
                 const interval = setInterval(() => {
@@ -29,7 +29,7 @@
             adVideo.addEventListener('play', () => {
                 setTimeout(() => {
                     skipButton.style.display = 'block';
-                }, 13000);
+                }, 21000);
                 countdown();
             });
 
@@ -59,7 +59,7 @@
                 adLink.href = link;
             }
 
-            setAdVideoSource('https://1a-1791.com/video/s8/2/s/V/i/_/sVi_s.caa.mp4', 'https://shivamnox.blogspot.com');
+            setAdVideoSource('https://1a-1791.com/video/s8/2/5/D/I/H/5DIHt.gaa.mp4', 'https://shivamnox.blogspot.com');
 
             
         });
@@ -68,4 +68,4 @@
   // Delay the generation of the episode list by 13 seconds
   setTimeout(() => {
     generateEpisodeList();  // Create episode list after delay
-  }, 13000); // 13000 milliseconds = 13 seconds
+  }, 25000); // 13000 milliseconds = 13 seconds
